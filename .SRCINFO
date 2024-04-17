@@ -7,6 +7,7 @@ pkgbase = fatx
 	license = GPL
 	makedepends = boost
 	makedepends = cmake
+	makedepends = doxygen
 	depends = fuse
 	depends = boost-libs
 	depends = libboost_program_options.so
