@@ -8,6 +8,7 @@ pkgbase = fatx
 	makedepends = boost
 	makedepends = cmake
 	makedepends = doxygen
+	makedepends = graphviz
 	depends = fuse
 	depends = boost-libs
 	depends = libboost_program_options.so
