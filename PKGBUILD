@@ -15,6 +15,8 @@ source=("http://downloads.sourceforge.net/project/fatx/${pkgname}-${pkgver}.tar.
 sha256sums=('533b1a40d9fe0e7038d0ad8a461624c01cd0bc7c52a79cdc9293db0fcc1b4e25')
 
 build() {
+    sed -i 's/SBIN/BIN/g' "${srcdir}/CMakeLists.txt"
+    sed -i 's/sbin/bin/g' "${srcdir}/CMakeLists.txt"
     cmake -B build -S "$srcdir" -DCMAKE_BUILD_TYPE='None' -DCMAKE_INSTALL_PREFIX='/usr' -Wno-dev
     cmake --build build
 }
