@@ -3,7 +3,7 @@
 
 pkgname=fatx
 pkgver=1.17
-pkgrel=1
+pkgrel=2
 pkgdesc="XBox filesystem support for linux"
 arch=('any')
 url="http://sourceforge.net/projects/fatx/"
