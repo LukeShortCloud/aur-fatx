@@ -1,31 +1,28 @@
-# Maintainer: Bakasura <bakasura@protonmail.ch>
+# Maintainer: t3kk3n <corp[at]hush[dot]ai>
+# Contributor: Bakasura <bakasura[at]protonmail[dot]ch>
 
 pkgname=fatx
-pkgver=1.15
-pkgrel=4
+pkgver=1.17
+pkgrel=1
 pkgdesc="XBox filesystem support for linux"
 arch=('any')
 url="http://sourceforge.net/projects/fatx/"
 license=('GPL')
 provides=($pkgname)
-makedepends=('boost')
-depends=('fuse' 'libboost_program_options.so')
-source=("http://downloads.sourceforge.net/project/fatx/${pkgname}-${pkgver}.tar.gz" "fatx.patch")
-sha256sums=('bcdd90d37ff16c83ae5350273cf000064de698e2ddde3ba7aa1da3e6cfc4c455'
-            'a03197b4639cc019aca9e8cf784e2a41b0bd2d6a8e7bce1f624c079dd877f429')
-
-prepare() {
-    cd "${srcdir}/${pkgname}-${pkgver}"
-    patch -Np1 -i "../fatx.patch"
-}
+makedepends=('boost' 'cmake')
+depends=('fuse' 'boost-libs' 'libboost_program_options.so')
+source=("http://downloads.sourceforge.net/project/fatx/${pkgname}-${pkgver}.tar.gz")
+sha256sums=('533b1a40d9fe0e7038d0ad8a461624c01cd0bc7c52a79cdc9293db0fcc1b4e25')
 
 build() {
-	cd "${srcdir}/${pkgname}-${pkgver}"
-	./configure --prefix=/usr --sbindir=/usr/bin
-	make
+    cmake -B build -S "$srcdir" -DCMAKE_BUILD_TYPE='None' -DCMAKE_INSTALL_PREFIX='/usr' -Wno-dev
+    cmake --build build
+}
+
+check() {
+    ctest --test-dir build --output-on-failure
 }
 
 package() {
-	cd "${srcdir}/${pkgname}-${pkgver}"
-	make DESTDIR="$pkgdir/" install
+    DESTDIR="$pkgdir" cmake --install build
 }
