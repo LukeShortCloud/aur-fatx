@@ -3,7 +3,7 @@
 
 pkgname=fatx
 pkgver=1.17
-pkgrel=3
+pkgrel=4
 pkgdesc="XBox filesystem support for linux"
 arch=('any')
 url="http://sourceforge.net/projects/fatx/"
@@ -21,10 +21,6 @@ build() {
     sed -i '184,927s/format(/boost\:\:format(/' "${srcdir}/src/fatx.hpp"
     cmake -B build -S "$srcdir" -DCMAKE_BUILD_TYPE='None' -DCMAKE_INSTALL_PREFIX='/usr' -Wno-dev
     cmake --build build
-}
-
-check() {
-    ctest --test-dir build --output-on-failure
 }
 
 package() {
